@@ -51,4 +51,9 @@ RSpec.describe Cabral::Step do
     it { expect(moving.h).to eql(1) }
     it { expect(moving.f).to eql(8) }
   end
+
+  describe "#==" do
+    let(:another_step) { described_class.new(map, point, objective) }
+    it { expect(subject == another_step).to eql(true) }
+  end
 end

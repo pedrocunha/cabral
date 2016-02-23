@@ -40,6 +40,10 @@ module Cabral
       self.class.new(map, @point.west, @objective, g)
     end
 
+    def ==(step)
+      x == step.x && y == step.y
+    end
+
     # Cost movement methods
 
     def g
