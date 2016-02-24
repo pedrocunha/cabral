@@ -7,13 +7,15 @@ module Cabral
     # @point: current cartesian point
     # @objective: objective cartesian point
     # @g: movement cost
-    attr_reader :map, :x, :y
+    # @parent: step before
+    attr_reader :map, :x, :y, :parent
 
-    def initialize(map, point, objective, g = 0)
+    def initialize(map, point, objective, g = 0, parent = nil)
       @map       = map
       @point     = point
       @objective = objective
       @g         = g + map[point.y][point.x]
+      @parent    = parent
     end
 
     def x
@@ -25,19 +27,19 @@ module Cabral
     end
 
     def north
-      self.class.new(map, @point.north, @objective, g)
+      self.class.new(map, @point.north, @objective, g, self)
     end
 
     def east
-      self.class.new(map, @point.east, @objective, g)
+      self.class.new(map, @point.east, @objective, g, self)
     end
 
     def south
-      self.class.new(map, @point.south, @objective, g)
+      self.class.new(map, @point.south, @objective, g, self)
     end
 
     def west
-      self.class.new(map, @point.west, @objective, g)
+      self.class.new(map, @point.west, @objective, g, self)
     end
 
     def ==(step)
